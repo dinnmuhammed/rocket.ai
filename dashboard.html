@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard</title>
+</head>
+<body>
+  <h1>Welcome to your dashboard!</h1>
+  <div id="modules">
+    <div>Module 1: ✅ Free</div>
+    <div>Module 2: 🔒 Locked</div>
+    <div>Module 3: 🔒 Locked</div>
+  </div>
+  <button onclick="logout()">Logout</button>
+
+  <script src="js/supabase.js"></script>
+  <script>
+    async function checkUser() {
+      const { data, error } = await supabaseClient.auth.getUser();
+      if (!data.user) {
+        window.location.href = "login.html"; // redirect if not logged in
+      }
+    }
+
+    checkUser();
+
+    async function logout() {
+      await supabaseClient.auth.signOut();
+      window.location.href = "login.html";
+    }
+  </script>
+</body>
+</html>
