@@ -16,16 +16,25 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
 <script src="js/supabase.js"></script>
 
+
+  
   <script>
     async function register() {
       const email = document.getElementById("email").value;
       const password = document.getElementById("password").value;
 
-      const { error } = await supabaseClient.auth.signUp({ email, password });
+      const { data, error } = await supabaseClient.auth.signUp({
+        email: email,
+        password: password
+      });
 
-      document.getElementById("status").innerText = error
-        ? "❌ " + error.message
-        : "✅ Check your email for confirmation!";
+      if (error) {
+        alert("Error: " + error.message);
+      } else {
+        alert("Check your email for confirmation!");
+        // redirect if you want:
+        window.location.href = "login.html";
+      }
     }
   </script>
 </body>
